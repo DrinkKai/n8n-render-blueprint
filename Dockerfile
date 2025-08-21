@@ -10,4 +10,7 @@ RUN apk add --no-cache \
 
 USER node
 
+# Install bwip-js in the custom nodes folder (which n8n already loads)
+RUN npm install --prefix /home/node/.n8n/nodes bwip-js
+
 ENV PYTHON=/usr/bin/python3
