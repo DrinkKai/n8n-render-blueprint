@@ -1,16 +1,11 @@
 FROM n8nio/n8n:latest
 
-USER root
-
-# Install essential Alpine build tools (still useful for other things)
-RUN apk add --no-cache \
-  build-base \
-  python3 \
-  py3-pip
-
+# n8n runs as 'node' by default and loads modules from /home/node/.n8n
 USER node
 
-# Install bwip-js in the custom nodes folder (which n8n already loads)
-RUN npm install --prefix /home/node/.n8n/nodes bwip-js
-
-ENV PYTHON=/usr/bin/python3
+# Install the libraries you want available in Code nodes
+RUN mkdir -p /home/node/.n8n \
+ && npm install --prefix /home/node/.n8n \
+      crypto-js@4 fast-xml-parser@^4 he luxon iconv-lite uuid \
+ && npm install --prefix /home/node/.n8n/nodes bwip-js
+# (drop/add packages as you need)
