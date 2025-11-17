@@ -2,10 +2,9 @@ services:
   - type: web
     name: n8n
     env: docker
-    region: oregon # optional (defaults to oregon)
-    plan: standard # optional (defaults to starter)
-    branch: main # optional (defaults to master)
-    # dockerCommand: ./webdis.sh # optional (defaults to Dockerfile command)
+    region: oregon
+    plan: standard
+    branch: main
     numInstances: 1
     healthCheckPath: /
     envVars:
@@ -31,6 +30,13 @@ services:
           property: password
       - key: WEBHOOK_URL
         value: https://<CHANGEME>.com/
+
+      # ⭐ ADD THESE TWO LINES
+      - key: N8N_TRUST_PROXY
+        value: "true"
+      - key: N8N_ENABLE_X_FORWARDED_FOR
+        value: "true"
+
     disk:
       name: n8n-disk
       mountPath: /home/node/.n8n
