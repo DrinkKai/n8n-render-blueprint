@@ -1,4 +1,5 @@
 FROM n8nio/n8n:latest
+COPY n8n-task-runners.json /etc/n8n-task-runners.json
 
 # n8n runs as 'node' by default and loads modules from /home/node/.n8n
 USER node
